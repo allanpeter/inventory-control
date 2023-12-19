@@ -7,8 +7,16 @@ import { configService } from './config/config.service';
 
 @Module({
   imports: [UsersModule,
-  TypeOrmModule.forRoot(configService.getTypeOrmConfig())
-  ],
+  TypeOrmModule.forRoot({
+    type: 'postgres',
+    host: '192.168.0.205',
+    port: 5432,
+    username: 'postgres',
+    password: 'postgres',
+    database: 'inventory',
+    entities: [__dirname + '/**/*.entity{.ts,.js}'],
+    synchronize: true, // set to false in production)
+})],
   controllers: [AppController],
   providers: [AppService],
 })
